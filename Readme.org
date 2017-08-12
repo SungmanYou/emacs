@@ -55,10 +55,7 @@
 (global-set-key (kbd "C-M-\\") (lambda() (interactive) (auto-indent)))
    #+END_SRC
 
-** <C-x g> key binding : Magit
-   #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x g") 'magit-status)
-   #+END_SRC
+
 * Theme
 ** Atom One Dark
    #+BEGIN_SRC emacs-lisp
@@ -166,7 +163,13 @@
    #+END_SRC
 ** Magit
    #+BEGIN_SRC emacs-lisp
-(use-package magit
-  :ensure t
-)
+     (use-package magit
+       :ensure t
+     )
+     ;; Key bindings
+     (global-set-key (kbd "C-x g") 'magit-status)
+     (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+
+     ;; Enable global magit file mode
+     (global-magit-file-mode t)
    #+END_SRC
