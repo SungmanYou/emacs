@@ -1,8 +1,9 @@
 *.*~
+*~
 *.git
 *.dat
+*.last
 auto-save-list/
 elpa/
 *.data
 myinit.el
-recentf
