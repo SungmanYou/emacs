@@ -1,3 +1,5 @@
+#+STARTIP: overview
+
 * Link
 ** Github
 [[https://github.com/SungmanYou/emacs]]
