@@ -17,7 +17,7 @@
    #+BEGIN_SRC emacs-lisp
 (tool-bar-mode -1)
    #+END_SRC
-** Fullscreen size
+** Full screen on startup
    #+BEGIN_SRC emacs-lisp
 (toggle-frame-maximized)
    #+END_SRC
