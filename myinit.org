@@ -2,7 +2,7 @@
 
 * Link
 ** Github
-[[https://github.com/SungmanYou/emacs]]
+   [[https://github.com/SungmanYou/emacs]]
 
 
 * Interface tweaks
@@ -13,6 +13,10 @@
 ** Hide the top tool bar
    #+BEGIN_SRC emacs-lisp
 (tool-bar-mode -1)
+   #+END_SRC
+** Fullscreen size
+   #+BEGIN_SRC emacs-lisp
+(toggle-frame-maximized)
    #+END_SRC
 ** Set ibuffer as default
    #+BEGIN_SRC emacs-lisp
@@ -30,6 +34,15 @@
    #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "S-SPC") (lambda() (interactive) (push-mark nil nil 1)))
    #+END_SRC
+** <C-M-\> key binding : Auto indent
+   #+BEGIN_SRC emacs-lisp
+(defun auto-indent ()
+    (save-excursion
+      (indent-region (point-min) (point-max))
+  )
+)
+(global-set-key (kbd "C-M-\\") (lambda() (interactive) (auto-indent)))
+   #+END_SRC
 
 
 * Theme
@@ -38,6 +51,7 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/atom-one-dark-theme-20170803.916/")
 (load-theme 'atom-one-dark t)
    #+END_SRC
+
 
 * Packages
 ** Try
@@ -115,3 +129,10 @@
 )
    #+END_SRC
 
+** Yasnippet
+   #+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :init (yas-global-mode 1)
+)
+   #+END_SRC
