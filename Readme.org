@@ -21,11 +21,17 @@
 * Theme
 ** Atom One Dark
    #+BEGIN_SRC emacs-lisp
+(use-package atom-one-dark-theme
+  :ensure t
+)
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/atom-one-dark-theme-20170803.916/")
 ;; (load-theme 'atom-one-dark t)
    #+END_SRC
-** Zenburn
+** Zenburn (Current theme)
    #+BEGIN_SRC emacs-lisp
+(use-package zenburn-theme
+  :ensure t
+)
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/zenburn-theme-20170511.1337/")
 (load-theme 'zenburn t)
    #+END_SRC
