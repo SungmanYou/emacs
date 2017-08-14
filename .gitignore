@@ -5,6 +5,7 @@
 *.last
 auto-save-list/
 elpa/
+eshell/
 *.data
 myinit.el
 recentf
