@@ -54,6 +54,10 @@
    #+BEGIN_SRC emacs-lisp
 (global-linum-mode t)
    #+END_SRC
+** Set default directory
+#+BEGIN_SRC emacs-lisp
+  (setq default-directory "/Users/sungman.you/Desktop/coding/projects/")
+#+END_SRC
 ** Set ibuffer as default
    #+BEGIN_SRC emacs-lisp
 (defalias 'list-buffers 'ibuffer)
@@ -224,3 +228,18 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
    #+END_SRC
+** TypeScript mode
+#+BEGIN_SRC emacs-lisp
+(use-package typescript-mode
+:ensure t
+)
+;;(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+#+END_SRC
+** Ng2 mode
+#+BEGIN_SRC emacs-lisp
+(use-package ng2-mode
+:ensure t
+)
+(require 'ng2-mode)
+(add-to-list 'auto-mode-alist '("\\.module.ts\\'" . ng2-ts-mode))
+#+END_SRC
