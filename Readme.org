@@ -243,3 +243,21 @@
 (require 'ng2-mode)
 (add-to-list 'auto-mode-alist '("\\.module.ts\\'" . ng2-ts-mode))
 #+END_SRC
+** Shell pop
+#+BEGIN_SRC emacs-lisp
+(use-package shell-pop
+:ensure t
+)
+(require 'shell-pop)
+#+END_SRC
+init.el file
+#+BEGIN_SRC emacs-lisp
+(custom-set-variables
+ '(shell-pop-default-directory "/path/to/default/directory")
+ '(shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
+ '(shell-pop-term-shell "/bin/bash")
+ '(shell-pop-universal-key "C-t")
+ '(shell-pop-window-size 30)
+ '(shell-pop-full-span t)
+ '(shell-pop-window-position "bottom"))
+#+END_SRC

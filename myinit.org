@@ -243,3 +243,10 @@
 (require 'ng2-mode)
 (add-to-list 'auto-mode-alist '("\\.module.ts\\'" . ng2-ts-mode))
 #+END_SRC
+** Shell pop
+#+BEGIN_SRC emacs-lisp
+(use-package shell-pop
+:ensure t
+)
+(require 'shell-pop)
+#+END_SRC
