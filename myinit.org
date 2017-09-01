@@ -27,7 +27,7 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/atom-one-dark-theme-20170803.916/")
 ;; (load-theme 'atom-one-dark t)
    #+END_SRC
-** Zenburn (Current theme)
+** Zenburn
    #+BEGIN_SRC emacs-lisp
 (use-package zenburn-theme
   :ensure t
@@ -88,7 +88,7 @@
 (global-set-key (kbd "C-M-\\") (lambda() (interactive) (auto-indent)))
    #+END_SRC
 
-
+   
 * Packages
 ** Try
    #+BEGIN_SRC emacs-lisp

@@ -27,7 +27,7 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/atom-one-dark-theme-20170803.916/")
 ;; (load-theme 'atom-one-dark t)
    #+END_SRC
-** Zenburn (Current theme)
+** Zenburn
    #+BEGIN_SRC emacs-lisp
 (use-package zenburn-theme
   :ensure t
@@ -88,7 +88,7 @@
 (global-set-key (kbd "C-M-\\") (lambda() (interactive) (auto-indent)))
    #+END_SRC
 
-
+   
 * Packages
 ** Try
    #+BEGIN_SRC emacs-lisp
@@ -249,15 +249,4 @@
 :ensure t
 )
 (require 'shell-pop)
-#+END_SRC
-init.el file
-#+BEGIN_SRC emacs-lisp
-(custom-set-variables
- '(shell-pop-default-directory "/path/to/default/directory")
- '(shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
- '(shell-pop-term-shell "/bin/bash")
- '(shell-pop-universal-key "C-t")
- '(shell-pop-window-size 30)
- '(shell-pop-full-span t)
- '(shell-pop-window-position "bottom"))
 #+END_SRC

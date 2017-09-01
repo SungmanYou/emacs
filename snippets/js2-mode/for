@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: for (let ... in ...) { ... };
+# key: for
+# --
+for (let $1 in $2) {
+    $3
+};$0

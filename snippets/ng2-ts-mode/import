@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: import { ... } from '...';
+# name: import '...';
 # key: import
 # --
-import { $1 } '$2';$0
+import '$1';$0
