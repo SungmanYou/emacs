@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: forEach( ... ) { ... };
+# key: forEach
+# --
+$1.forEach ((${2:currentValue}, ${3:index}, ${4:array}) => {
+	$5
+});$0
+
+

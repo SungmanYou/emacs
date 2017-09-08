@@ -3,6 +3,8 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
+;; Nameses
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (package-initialize)
 
@@ -18,19 +20,9 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (shell-pop typescript-mode zenburn-theme htmlize which-key use-package try org-edna org-bullets counsel auto-complete atom-one-dark-theme ace-window)))
- '(shell-pop-default-directory "/Users/sungman.you/Desktop/coding/projects/")
- '(shell-pop-full-span t)
- '(shell-pop-shell-type
-   (quote
-    ("ansi-term" "*ansi-term*"
-     (lambda nil
-       (ansi-term shell-pop-term-shell)))))
- '(shell-pop-term-shell "/bin/bash")
- '(shell-pop-universal-key "C-t")
- '(shell-pop-window-position "bottom")
- '(shell-pop-window-size 30))
+    (expand-region smartparens typescript-mode zenburn-theme htmlize use-package counsel auto-complete atom-one-dark-theme ace-window))))
 
+ 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

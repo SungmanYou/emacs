@@ -35,7 +35,7 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/zenburn-theme-20170511.1337/")
 (load-theme 'zenburn t)
    #+END_SRC
-
+   
 
 * Interface tweaks
 ** Disable the Welcome page
@@ -55,9 +55,9 @@
 (global-linum-mode t)
    #+END_SRC
 ** Set default directory
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
   (setq default-directory "/Users/sungman.you/Desktop/coding/projects/")
-#+END_SRC
+   #+END_SRC
 ** Set ibuffer as default
    #+BEGIN_SRC emacs-lisp
 (defalias 'list-buffers 'ibuffer)
@@ -72,7 +72,7 @@
    #+END_SRC
 ** <F5> key binding : Revert buffer
    #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<f5>") 'revert-buffer)
+     ;; (global-set-key (kbd "<f5>") 'revert-buffer)
    #+END_SRC
 ** <S-SPC> key binding : Mark set
    #+BEGIN_SRC emacs-lisp
@@ -92,16 +92,16 @@
 * Packages
 ** Try
    #+BEGIN_SRC emacs-lisp
-(use-package try
-  :ensure t
-)
+     ;; (use-package try
+     ;;   :ensure t
+     ;; )
    #+END_SRC
 ** Which key
    #+BEGIN_SRC emacs-lisp
-(use-package which-key
-  :ensure t
-  :config (which-key-mode)
-)
+     ;; (use-package which-key
+     ;;   :ensure t
+     ;;   :config (which-key-mode)
+     ;; )
    #+END_SRC
 ** Ace window
    #+BEGIN_SRC emacs-lisp
@@ -159,16 +159,16 @@
    #+END_SRC
 ** Reveal.js
    #+BEGIN_SRC emacs-lisp
-(use-package ox-reveal
-  :ensure ox-reveal
-)
-(setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
-(setq org-reveal-mathjax t)
+     ;; (use-package ox-reveal
+     ;;   :ensure ox-reveal
+     ;; )
+     ;; (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
+     ;; (setq org-reveal-mathjax t)
 
-;; For highlighting syntax in presentation
-(use-package htmlize
-  :ensure t
-)
+     ;; ;; For highlighting syntax in presentation
+     ;; (use-package htmlize
+     ;;   :ensure t
+     ;; )
    #+END_SRC
 
 ** Yasnippet
@@ -180,10 +180,10 @@
    #+END_SRC
 ** Undo tree
    #+BEGIN_SRC emacs-lisp
-(use-package undo-tree
-  :ensure t
-  :init (global-undo-tree-mode)
-)
+     ;; (use-package undo-tree
+     ;;   :ensure t
+     ;;   :init (global-undo-tree-mode)
+     ;; )
    #+END_SRC
 ** Aggresive indent
    #+BEGIN_SRC emacs-lisp
@@ -229,24 +229,53 @@
 (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
    #+END_SRC
 ** TypeScript mode
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (use-package typescript-mode
 :ensure t
 )
 ;;(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
-#+END_SRC
+   #+END_SRC
 ** Ng2 mode
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (use-package ng2-mode
 :ensure t
 )
 (require 'ng2-mode)
 (add-to-list 'auto-mode-alist '("\\.module.ts\\'" . ng2-ts-mode))
-#+END_SRC
+   #+END_SRC
 ** Shell pop
-#+BEGIN_SRC emacs-lisp
-(use-package shell-pop
+   #+BEGIN_SRC emacs-lisp
+     ;; (use-package shell-pop
+     ;; :ensure t
+     ;; )
+     ;; (require 'shell-pop)
+   #+END_SRC
+** Smart Parens
+   #+BEGIN_SRC emacs-lisp
+(use-package smartparens
 :ensure t
-)
-(require 'shell-pop)
-#+END_SRC
+:config (require 'smartparens-config)
+:init (smartparens-global-mode t))
+   #+END_SRC
+** Nameses
+   <f9> → Load an existing session
+   Ctrl-u <f9> → Create new session (you’ll be asked for a name)
+   Ctrl-Shift-<f9> → Save session (you’ll be asked for a name)
+   Ctrl-<f9> → Switch to previous session
+   #+BEGIN_SRC emacs-lisp
+     (load "nameses")
+     (require 'desktop)
+     (require 'nameses)
+     (global-set-key (kbd "<f9>")     'nameses-load)
+     ;; (global-set-key (kbd "C-<f9>")   'nameses-prev)
+     (global-set-key (kbd "C-S-<f9>") 'nameses-save)
+   #+END_SRC
+** Expand-region
+   C-= to expand region
+   #+BEGIN_SRC emacs-lisp
+    (use-package expand-region
+      :ensure t
+      :config
+      (global-set-key (kbd "C-=") 'er/expand-region))
+(setq shift-select-mode nil) ;; When you expand region then C-g for some reason has conflict with transient-mark-mode
+   #+END_SRC
