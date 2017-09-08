@@ -17,6 +17,21 @@
 )
    #+END_SRC
 
+** Eslint Google Config (.eslintrc.js)
+#+BEGIN_SRC javascript
+  module.exports = {
+      "extends": "google",
+      "env": {
+	  "es6": true,
+	  "node": true
+      },
+      "rules": {
+	  "no-tabs": 0,
+	  "comma-dangle": 0
+      }
+  };
+#+END_SRC
+
 
 * Theme
 ** Atom One Dark
@@ -90,13 +105,13 @@
 
    
 * Packages
-** Try
+** Try (X)
    #+BEGIN_SRC emacs-lisp
      ;; (use-package try
      ;;   :ensure t
      ;; )
    #+END_SRC
-** Which key
+** Which key (X)
    #+BEGIN_SRC emacs-lisp
      ;; (use-package which-key
      ;;   :ensure t
@@ -178,19 +193,19 @@
   :init (yas-global-mode 1)
 )
    #+END_SRC
-** Undo tree
+** Undo tree (X)
    #+BEGIN_SRC emacs-lisp
      ;; (use-package undo-tree
      ;;   :ensure t
      ;;   :init (global-undo-tree-mode)
      ;; )
    #+END_SRC
-** Aggresive indent
+** Aggresive indent (X)
    #+BEGIN_SRC emacs-lisp
-(use-package aggresive-indent
-  :ensure t
-  :config (global-aggresive-indent-mode 1)
-)
+     ;; (use-package aggresive-indent
+     ;;   :ensure t
+     ;;   :config (global-aggresive-indent-mode 1)
+     ;; )
    #+END_SRC
 ** Magit
    #+BEGIN_SRC emacs-lisp
@@ -243,7 +258,7 @@
 (require 'ng2-mode)
 (add-to-list 'auto-mode-alist '("\\.module.ts\\'" . ng2-ts-mode))
    #+END_SRC
-** Shell pop
+** Shell pop (X)
    #+BEGIN_SRC emacs-lisp
      ;; (use-package shell-pop
      ;; :ensure t
@@ -258,10 +273,6 @@
 :init (smartparens-global-mode t))
    #+END_SRC
 ** Nameses
-   <f9> → Load an existing session
-   Ctrl-u <f9> → Create new session (you’ll be asked for a name)
-   Ctrl-Shift-<f9> → Save session (you’ll be asked for a name)
-   Ctrl-<f9> → Switch to previous session
    #+BEGIN_SRC emacs-lisp
      (load "nameses")
      (require 'desktop)
@@ -278,4 +289,11 @@
       :config
       (global-set-key (kbd "C-=") 'er/expand-region))
 (setq shift-select-mode nil) ;; When you expand region then C-g for some reason has conflict with transient-mark-mode
+   #+END_SRC
+** Flycheck
+   #+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :init (global-flycheck-mode))
+(add-hook 'after-init-hook #'global-flycheck-mode)
    #+END_SRC
