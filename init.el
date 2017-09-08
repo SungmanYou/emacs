@@ -3,8 +3,9 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
-;; Nameses
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+
+;; (add-to-list 'load-path "~/.emacs.d/lisp/") ;; Nameses
 
 (package-initialize)
 

@@ -17,27 +17,52 @@
 )
    #+END_SRC
 
-** Eslint Google Config (.eslintrc.js)
-#+BEGIN_QUOTE
-Require "npm install eslint eslint-config-google -g"
-
-Save the below as ".eslintrc.js" to the root directory of project
-#+END_QUOTE
-
-#+BEGIN_SRC javascript
+** Flycheck: eslint Google Config (.eslintrc.js)
+   #+BEGIN_QUOTE
+   Require "npm install eslint eslint-config-google eslint-plugin-json -g"
+   Save the below as ".eslintrc.js" to the root directory of project
+   #+END_QUOTE
+   #+BEGIN_SRC javascript
   module.exports = {
       "extends": "google",
       "env": {
+	  "browser": true,
 	  "es6": true,
 	  "node": true
       },
+      "plugins": [
+	  "json"
+      ],
       "rules": {
 	  "no-tabs": 0,
-	  "comma-dangle": 0
+	  "comma-dangle": 0,
+	  "no-mixed-spaces-and-tabs": 0,
+	  "no-trailing-spaces": 0,
+	  "max-len": 0,
+	  "new-cap": 0,
+	  "require-jsdoc": ["error", {
+	      "require": {
+		  "FunctionDeclaration": false, // true
+		  "MethodDefinition": false,
+		  "ClassDeclaration": false,
+		  "ArrowFunctionExpression": false
+	      }
+	  }]
       }
   };
-#+END_SRC
+   #+END_SRC
 
+** Flycheck: Angular CLI (tslint.json)
+   #+BEGIN_QUOTE
+   Require "npm install typescript tslint -g"
+   #+END_QUOTE
+   #+BEGIN_SRC javascript
+     "indent": [
+	 false, // true
+	 "spaces"
+     ],
+     "no-trailing-whitespace": false, // true
+   #+END_SRC
 
 * Theme
 ** Atom One Dark
@@ -278,14 +303,14 @@ Save the below as ".eslintrc.js" to the root directory of project
 :config (require 'smartparens-config)
 :init (smartparens-global-mode t))
    #+END_SRC
-** Nameses
+** Nameses (X)
    #+BEGIN_SRC emacs-lisp
-     (load "nameses")
-     (require 'desktop)
-     (require 'nameses)
-     (global-set-key (kbd "<f9>")     'nameses-load)
+     ;; (load "nameses")
+     ;; (require 'desktop)
+     ;; (require 'nameses)
+     ;; (global-set-key (kbd "<f9>")     'nameses-load)
      ;; (global-set-key (kbd "C-<f9>")   'nameses-prev)
-     (global-set-key (kbd "C-S-<f9>") 'nameses-save)
+     ;; (global-set-key (kbd "C-S-<f9>") 'nameses-save)
    #+END_SRC
 ** Expand-region
    C-= to expand region
@@ -298,8 +323,20 @@ Save the below as ".eslintrc.js" to the root directory of project
    #+END_SRC
 ** Flycheck
    #+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :ensure t
-    :init (global-flycheck-mode))
-(add-hook 'after-init-hook #'global-flycheck-mode)
+     (use-package flycheck
+       :ensure t
+       :init (global-flycheck-mode))
+     (add-hook 'after-init-hook #'global-flycheck-mode)
+     (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+     (flycheck-add-mode 'typescript-tslint 'ng2-ts-mode)
+
+     ;; (use-package flycheck-color-mode-line
+     ;;   :ensure t)
+     ;; (with-eval-after-load 'flycheck
+     ;;   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+
+     ;; (use-package flycheck-pos-tip
+     ;;   :ensure t)
+     ;; (with-eval-after-load 'flycheck
+     ;;   (flycheck-pos-tip-mode))
    #+END_SRC
