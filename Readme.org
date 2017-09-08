@@ -18,6 +18,12 @@
    #+END_SRC
 
 ** Eslint Google Config (.eslintrc.js)
+#+BEGIN_QUOTE
+Require "npm install eslint eslint-config-google -g"
+
+Save the below as ".eslintrc.js" to the root directory of project
+#+END_QUOTE
+
 #+BEGIN_SRC javascript
   module.exports = {
       "extends": "google",
