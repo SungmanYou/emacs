@@ -16,10 +16,10 @@
   )
 )
    #+END_SRC
-
 ** Flycheck: eslint Google Config (.eslintrc.js)
    #+BEGIN_QUOTE
    Require "npm install eslint eslint-config-google eslint-plugin-json -g"
+
    Save the below as ".eslintrc.js" to the root directory of project
    #+END_QUOTE
    #+BEGIN_SRC javascript
@@ -64,6 +64,7 @@
      "no-trailing-whitespace": false, // true
    #+END_SRC
 
+
 * Theme
 ** Atom One Dark
    #+BEGIN_SRC emacs-lisp
@@ -96,9 +97,20 @@
    #+BEGIN_SRC emacs-lisp
 (toggle-frame-maximized)
    #+END_SRC
-** Enable line number
+** Enable line number & Fix linum for scaled text
    #+BEGIN_SRC emacs-lisp
 (global-linum-mode t)
+
+(require 'linum)
+(defun linum-update-window-scale-fix (win)
+  (set-window-margins win
+          (ceiling (* (if (boundp 'text-scale-mode-step)
+                  (expt text-scale-mode-step
+                    text-scale-mode-amount) 1)
+              (if (car (window-margins))
+                  (car (window-margins)) 1)
+              ))))
+(advice-add #'linum-update-window :after #'linum-update-window-scale-fix)
    #+END_SRC
 ** Set default directory
    #+BEGIN_SRC emacs-lisp
@@ -116,7 +128,7 @@
    #+BEGIN_SRC emacs-lisp
 (global-hl-line-mode t)
    #+END_SRC
-** <F5> key binding : Revert buffer
+** <F5> key binding : Revert buffer (X)
    #+BEGIN_SRC emacs-lisp
      ;; (global-set-key (kbd "<f5>") 'revert-buffer)
    #+END_SRC
@@ -134,7 +146,20 @@
 (global-set-key (kbd "C-M-\\") (lambda() (interactive) (auto-indent)))
    #+END_SRC
 
-   
+** Enable Show paren Mode
+   #+BEGIN_SRC emacs-lisp
+     ;; Make it permanent
+     (show-paren-mode 1)
+     ;; Deactivate delay
+     (setq show-paren-delay 0)
+     ;; Change the color / face
+     (require 'paren)
+     (set-face-background 'show-paren-match "#000000")
+     (set-face-foreground 'show-paren-match "#ff4040")
+     (set-face-attribute 'show-paren-match nil :weight 'ultra-bold)
+   #+END_SRC
+
+
 * Packages
 ** Try (X)
    #+BEGIN_SRC emacs-lisp
@@ -203,7 +228,7 @@
         )
 )
    #+END_SRC
-** Reveal.js
+** Reveal.js (X)
    #+BEGIN_SRC emacs-lisp
      ;; (use-package ox-reveal
      ;;   :ensure ox-reveal
