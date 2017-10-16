@@ -66,6 +66,18 @@
 (set-face-foreground 'show-paren-match "#ff4040")
 (set-face-attribute 'show-paren-match nil :weight 'ultra-bold)
 
+;; enable 'Octave Mode' automatically for all .m files
+(setq auto-mode-alist
+      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+
+;; to turn on the abbrevs, auto-fill and font-lock features automatically
+(add-hook 'octave-mode-hook
+	  (lambda ()
+	    (abbrev-mode 1)
+	    (auto-fill-mode 1)
+	    (if (eq window-system 'x)
+		(font-lock-mode 1))))
+
 ;; (use-package try
 ;;   :ensure t
 ;; )
@@ -99,19 +111,19 @@
 (use-package swiper
   :ensure t
   :bind (
-          ("C-s" . swiper)
-          ("C-r" . swiper)
-          ("C-c C-r" . ivy-resume)
-	  ("M-x" . counsel-M-x)
-	  ("C-x C-f" . counsel-find-file)
-	)
+	 ("C-s" . swiper)
+	 ("C-r" . swiper)
+	 ("C-c C-r" . ivy-resume)
+	 ("M-x" . counsel-M-x)
+	 ("C-x C-f" . counsel-find-file)
+	 )
   :config (progn
-            (ivy-mode 1)
+	    (ivy-mode 1)
 	    (setq ivy-use-virtual-buffers t)
 	    (setq ivy-display-style 'fancy)
 	    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-	  )
-)
+	    )
+  )
 
 (use-package auto-complete
   :ensure t

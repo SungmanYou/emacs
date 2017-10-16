@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: tensorflow
+# key: tensorflow
+# --
+# Disable warnings
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
+
+# The canonical import statement for TensorFlow
+import tensorflow as tf
