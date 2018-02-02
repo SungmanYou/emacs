@@ -21,7 +21,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (expand-region smartparens typescript-mode zenburn-theme htmlize use-package counsel auto-complete atom-one-dark-theme ace-window))))
+    (js-doc web-mode expand-region smartparens typescript-mode zenburn-theme htmlize use-package counsel auto-complete atom-one-dark-theme ace-window))))
 
  
 (custom-set-faces
