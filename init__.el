@@ -12,7 +12,7 @@
 
 
 ;; Fonts
-(set-face-attribute 'default nil :font "Fira Code Retina" :height 140)
+(set-face-attribute 'default nil :font "Fira Code Retina" :height 150)
 
 
 ;; Theme
@@ -64,15 +64,17 @@
   :config
   (ivy-mode 1))
 
+(use-package all-the-icons)
+
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 30)))
+  :custom ((doom-modeline-height 20)))
 
 (use-package doom-themes)
 
+
 ;; (use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
-;; (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 
 (use-package which-key
@@ -104,6 +106,23 @@
   ([remap describe-key] . helpful-key))
 
 
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  (when (file-directory-p "~/projects/code")
+    (setq projectile-project-search-path '("~/projects/code")))
+  (setq projectile-switch-project-action #'projectile-dired))
+
+
+(use-package counsel-projectile
+  :config (counsel-projectile-mode))
+
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -117,7 +136,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("88f7ee5594021c60a4a6a1c275614103de8c1435d6d08cc58882f920e0cec65e" "5f128efd37c6a87cd4ad8e8b7f2afaba425425524a68133ac0efd87291d05874" "8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098" "571661a9d205cb32dfed5566019ad54f5bb3415d2d88f7ea1d00c7c794e70a36" "34cf3305b35e3a8132a0b1bdf2c67623bc2cb05b125f8d7d26bd51fd16d547ec" default))
  '(package-selected-packages
-   '(doom-themes helpful counsel ivy-rich which-key rainbow-delimiters swiper doom-modeline ivy command-log-mode monokai-theme expand-region)))
+   '(counsel-projectile projectile all-the-icons doom-themes helpful counsel ivy-rich which-key rainbow-delimiters swiper doom-modeline ivy command-log-mode monokai-theme expand-region)))
