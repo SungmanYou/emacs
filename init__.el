@@ -12,7 +12,7 @@
 
 
 ;; Fonts
-(set-face-attribute 'default nil :font "Fira Code Retina" :height 150)
+(set-face-attribute 'default nil :font "Fira Code Retina" :height 100)
 
 
 ;; Theme
@@ -121,6 +121,11 @@
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
 
+(use-package magit
+  :commands (magit-status magit-get-current-branch)
+  :custom (magit-display-buffer-function #'magit-display-buffer-same-windows-except-diff-v1))
+
+(use-package svelte-mode)
 
 
 (custom-set-faces
@@ -137,4 +142,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(counsel-projectile projectile all-the-icons doom-themes helpful counsel ivy-rich which-key rainbow-delimiters swiper doom-modeline ivy command-log-mode monokai-theme expand-region)))
+   '(svelte-mode magit counsel-projectile projectile all-the-icons doom-themes helpful counsel ivy-rich which-key rainbow-delimiters swiper doom-modeline ivy command-log-mode monokai-theme expand-region)))
