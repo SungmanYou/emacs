@@ -190,9 +190,18 @@
   (dashboard-setup-startup-hook))
 
 (setq dashboard-startup-banner 'logo)
+(setq dashboard-center-content t)
+(setq dashboard-vertically-center-content t)
+(setq dashboard-icon-type 'all-the-icons)
+(add-to-list 'dashboard-items '(agenda) t)
+(setq dashboard-week-agenda t)
+(setq dashboard-projects-backend 'projectile)
+(setq dashboard-filter-agenda-entry 'dashboard-no-filter-agenda)
 (setq dashboard-items '((recents  . 5)
+			(bookmarks . 5)
                         (projects . 5)
-                        (agenda . 5)))
+                        (agenda . 5)
+			(registers . 5)))
 
 ;; Doom Themes
 (use-package doom-themes
