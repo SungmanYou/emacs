@@ -1,145 +1,241 @@
-(setq inhibit-startup-message t)
-
-(scroll-bar-mode -1)	; Disable visible scrollbar
-(tool-bar-mode -1)	; Disable the toolbar
-(tooltip-mode -1)	; Disable tooltips
-(set-fringe-mode 5)	; Give some breathing room
-(menu-bar-mode -1)	; Disable the menu bar
-
-
-;; Set up the visible bell
-(setq visible-bell t)
-
-
-;; Fonts
-(set-face-attribute 'default nil :font "Fira Code Retina" :height 100)
-
-
-;; Theme
-(load-theme 'wombat)
-
-
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
+;;; package --- Summary
+;;; Commentary:
+;;; Code:
 
 ;; Initialize package sources
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
-(unless package-archive-contents(package-refresh-contents))
-(unless (package-installed-p 'use-package)(package-install 'use-package)) ;; Initialize use-package on non-Linux platforms
 
+;; Install use-package if not already installed
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
+;; Ensure use-package is always used
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Set default font and font size
+(set-face-attribute 'default nil
+                    :family "Fira Code Retina" ;; Replace with your preferred font
+                    :height 130) ;; Font size in 1/10pt, so 120 means 12pt
 
-(column-number-mode)
+;; Disable the startup screen
+(setq inhibit-startup-screen t)
+
+;; Disable toolbar and scrollbar
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+;; Enable line numbers
 (global-display-line-numbers-mode t)
-(dolist (mode '(org-mode-hook term-mode-hook shell-mode-hook  eshell-mode-hook)) ;; Disable line numbers for some modes
-  (add-hook mode(lambda() (display-line-numbers-mode 0))))
 
+;; Enable column numbers
+(column-number-mode t)
 
-(use-package command-log-mode)
+;; Highlight matching parentheses
+(show-paren-mode 1)
 
+;; Backup files configuration
+(setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
+(setq backup-by-copying t)
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
 
+;; Autosave files configuration
+(setq auto-save-file-name-transforms
+      `((".*" "~/.emacs.d/auto-saves/" t)))
+
+;; Enable y/n answers
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Better handling of text wrapping
+(global-visual-line-mode t)
+
+;; Enable clipboard integration
+(setq select-enable-clipboard t)
+
+;; Auto-revert buffers of changed files
+(global-auto-revert-mode t)
+
+;; Ivy, Counsel, and Swiper
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
+         ("C-c C-r" . ivy-resume)
+         ("C-x b" . ivy-switch-buffer)
          :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)	
+         ("TAB" . ivy-alt-done)
          ("C-l" . ivy-alt-done)
          ("C-j" . ivy-next-line)
          ("C-k" . ivy-previous-line)
          :map ivy-switch-buffer-map
          ("C-k" . ivy-previous-line)
          ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
          :map ivy-reverse-i-search-map
          ("C-k" . ivy-previous-line)
          ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
 
-(use-package all-the-icons)
-
-
-(use-package doom-modeline
-  :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 20)))
-
-(use-package doom-themes)
-
-
-;; (use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
-
-
-(use-package which-key
-  :init (which-key-mode)
-  :diminish which-key-mode
-  :config
-  (setq which-key-idel-delay 0.3))
-
-
-(use-package ivy-rich
-  :init (ivy-rich-mode 1))
-
-
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
-	 ("C-x b" . counsel-ibuffer)
-	 ("C-x C-f" . counsel-find-file)
-	 :map minibuffer-local-map
-	 ("C-r" . 'counsel-minibuffer-history)))
+         ("C-x C-f" . counsel-find-file)
+         ("C-r" . counsel-minibuffer-history))
+  :config
+  (counsel-mode 1))
 
-(use-package helpful
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
-  :bind
-  ([remap describe-function] . counsel-describe-function)
-  ([remap describe-command] . helpful-command)
-  ([remap describe-variable] . counsel-describe-variable)
-  ([remap describe-key] . helpful-key))
+(use-package swiper
+  :bind (("C-s" . swiper)))
 
+;; Magit
+(use-package magit
+  :bind ("C-x g" . magit-status))
 
+;; Projectile
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
-  :custom ((projectile-completion-system 'ivy))
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
-  (when (file-directory-p "~/projects/code")
-    (setq projectile-project-search-path '("~/projects/code")))
+  (when (file-directory-p "~/projects")
+    (setq projectile-project-search-path '("~/projects")))
   (setq projectile-switch-project-action #'projectile-dired))
 
+;; Which-key
+(use-package which-key
+  :diminish which-key-mode
+  :config (which-key-mode))
 
-(use-package counsel-projectile
-  :config (counsel-projectile-mode))
+;; Flycheck
+(use-package flycheck
+  :init (global-flycheck-mode))
 
-(use-package magit
-  :commands (magit-status magit-get-current-branch)
-  :custom (magit-display-buffer-function #'magit-display-buffer-same-windows-except-diff-v1))
+;; Company
+(use-package company
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 3)
+  (global-company-mode 1))
 
-(use-package svelte-mode)
+;; Python (with elpy)
+(use-package elpy
+  :init
+  (elpy-enable))
+
+;; JavaScript, TypeScript, HTML, and CSS
+(use-package js2-mode
+  :mode "\\.js\\'"
+  :interpreter "node"
+  :config
+  (setq js2-basic-offset 2))
+
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :config
+  (setq typescript-indent-level 2))
+
+(use-package web-mode
+  :mode ("\\.html\\'" "\\.css\\'" "\\.jsx\\'" "\\.tsx\\'")
+  :config
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-enable-auto-quoting nil))
+
+;; Prettier
+(use-package prettier-js
+  :hook ((js2-mode . prettier-js-mode)
+         (typescript-mode . prettier-js-mode)
+         (web-mode . prettier-js-mode)))
+
+;; Emmet mode for HTML and CSS
+(use-package emmet-mode
+  :hook ((web-mode . emmet-mode)
+         (css-mode . emmet-mode)))
+
+;; LSP (Language Server Protocol) configuration
+(use-package lsp-mode
+  :hook ((js2-mode . lsp)
+         (typescript-mode . lsp)
+         (web-mode . lsp))
+  :commands lsp)
+
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list)
+
+(use-package lsp-ivy
+  :commands lsp-ivy-workspace-symbol)
+
+;; Org Mode Enhancements
+(use-package org
+  :config
+  (setq org-hide-emphasis-markers t)
+  (setq org-startup-indented t)
+  (setq org-ellipsis " ▼ "))
+
+;; Dashboard
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+
+(setq dashboard-startup-banner 'logo)
+(setq dashboard-items '((recents  . 5)
+                        (projects . 5)
+                        (agenda . 5)))
+
+;; Doom Themes
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  ;; Load the theme (doom-one, doom-molokai, etc.)
+  (load-theme 'doom-one t)
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+;; All the icons
+(use-package all-the-icons
+  :ensure t)
+
+;; Doom Modeline
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :custom ((doom-modeline-height 20)))
+
+;; Unbind S-SPC (shift + space) to disable toggle-korean-input-method
+(global-unset-key (kbd "S-SPC"))
 
 
+
+;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+  '(package-selected-packages
+   '(lsp-ivy lsp-treemacs lsp-ui lsp-mode emmet-mode prettier-js typescript-mode which-key web-mode vue-mode visual-fill-column treesit-auto svelte-mode rainbow-delimiters org-bullets magit js2-mode ivy-rich helpful flycheck elpy doom-themes doom-modeline dashboard counsel-projectile command-log-mode all-the-icons)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(svelte-mode magit counsel-projectile projectile all-the-icons doom-themes helpful counsel ivy-rich which-key rainbow-delimiters swiper doom-modeline ivy command-log-mode monokai-theme expand-region)))
